@@ -1,4 +1,4 @@
-# myproject
+# Qalby.ai
 
 A new Flutter project.
 
