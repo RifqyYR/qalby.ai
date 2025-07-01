@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myproject/common/app_route.dart';
+import 'package:myproject/common/cubit/nav_cubit.dart';
 import 'package:myproject/common/theme/app_colors.dart';
 
 void main() async {
@@ -17,17 +19,22 @@ class QalbyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-        useMaterial3: true,
-        textTheme: GoogleFonts.notoSerifTextTheme(Theme.of(context).textTheme),
-        primaryColor: AppColors.primary,
-        scaffoldBackgroundColor: AppColors.background,
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => NavCubit())],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+          useMaterial3: true,
+          textTheme: GoogleFonts.notoSerifTextTheme(
+            Theme.of(context).textTheme,
+          ),
+          primaryColor: AppColors.primary,
+          scaffoldBackgroundColor: AppColors.background,
+        ),
+        initialRoute: AppRoute.splash,
+        onGenerateRoute: AppRoute.onGenerateRoute,
       ),
-      initialRoute: AppRoute.splash,
-      onGenerateRoute: AppRoute.onGenerateRoute,
     );
   }
 }
